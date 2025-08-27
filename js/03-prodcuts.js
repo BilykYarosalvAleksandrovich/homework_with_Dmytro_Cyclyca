@@ -67,7 +67,22 @@ function handlerClick(event) {
   if (event.target === event.currentTarget) {
     return;
   }
-  console.log(event.target);
+  const currentProduct = event.target.closest(".product-item");
+
+  const id = currentProduct.dataset.id;
+
+  const product = products.find((item) => item.id === +id);
+
+  const instance = basicLightbox.create(`
+    <div class ="modal">
+     <img src = "${product.img}" alt="${product.name}"/>
+    <h2>${product.name}</h2> 
+    <h3>Ціна: ${product.price} грн</h3> 
+    <p>${product.description}</p>
+    </div>
+    `);
+
+  instance.show();
 }
 
 // const container = document.querySelector(".products");
