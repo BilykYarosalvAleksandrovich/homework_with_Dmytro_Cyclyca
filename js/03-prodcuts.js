@@ -46,18 +46,19 @@ const products = [
 const container = document.querySelector(".products");
 
 container.insertAdjacentHTML("beforeend", createMarkup(products));
+
 container.addEventListener("click", handlerClick);
 
 function createMarkup(arr) {
   return arr
     .map(
       (item) => `
-  <li data-id="${item.id}" class="item product-item">
-    <img src="${item.img}" alt="${item.name}" width="300"/>
-    <h2>${item.name}</h2>
-    <p>Ціна: ${item.price} грн</p>
-  </li>
-`
+   <li class = "item product-item">
+   <img src="${item.img}" alt="${item.name}" width ="300"/>
+   <h2>${item.name}</h2>
+   <p>Ціна: ${item.price} грн</p>
+   </li> 
+    `
     )
     .join("");
 }
@@ -66,19 +67,45 @@ function handlerClick(event) {
   if (event.target === event.currentTarget) {
     return;
   }
-
-  const currentProduct = event.target.closest(".product-item");
-  const id = currentProduct.dataset.id;
-  const product = products.find((item) => item.id === +id);
-
-  const instance = basicLightbox.create(`
-  <div class="modal">
-    <img src="${product.img}" alt="${product.name}"/>
-    <h2>${product.name}</h2>
-    <h3>Ціна: ${product.price} грн</h3>
-    <p>${product.description}</p>
-  </div>
-`);
-
-  instance.show();
+  console.log(event.target);
 }
+
+// const container = document.querySelector(".products");
+
+// container.insertAdjacentHTML("beforeend", createMarkup(products));
+// container.addEventListener("click", handlerClick);
+
+// function createMarkup(arr) {
+//   return arr
+//     .map(
+//       (item) => `
+//   <li data-id="${item.id}" class="item product-item">
+//     <img src="${item.img}" alt="${item.name}" width="300"/>
+//     <h2>${item.name}</h2>
+//     <p>Ціна: ${item.price} грн</p>
+//   </li>
+// `
+//     )
+//     .join("");
+// }
+
+// function handlerClick(event) {
+//   if (event.target === event.currentTarget) {
+//     return;
+//   }
+
+//   const currentProduct = event.target.closest(".product-item");
+//   const id = currentProduct.dataset.id;
+//   const product = products.find((item) => item.id === +id);
+
+//   const instance = basicLightbox.create(`
+//   <div class="modal">
+//     <img src="${product.img}" alt="${product.name}"/>
+//     <h2>${product.name}</h2>
+//     <h3>Ціна: ${product.price} грн</h3>
+//     <p>${product.description}</p>
+//   </div>
+// `);
+
+//   instance.show();
+// }
