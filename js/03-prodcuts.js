@@ -53,10 +53,10 @@ function createMarkup(arr) {
   return arr
     .map(
       (item) => `
-   <li class = "item product-item">
-   <img src="${item.img}" alt="${item.name}" width ="300"/>
-   <h2>${item.name}</h2>
-   <p>Ціна: ${item.price} грн</p>
+   <li class="item product-item" data-id="${item.id}">
+     <img src="${item.img}" alt="${item.name}" width="300"/>
+     <h2>${item.name}</h2>
+     <p>Ціна: ${item.price} грн</p>
    </li> 
     `
     )
@@ -67,20 +67,28 @@ function handlerClick(event) {
   if (event.target === event.currentTarget) {
     return;
   }
+
   const currentProduct = event.target.closest(".product-item");
+  if (!currentProduct) {
+    return; // захист від null
+  }
 
   const id = currentProduct.dataset.id;
+  const product = products.find((item) => item.id === Number(id));
 
-  const product = products.find((item) => item.id === +id);
+  if (!product) {
+    console.error("Товар не знайдено за id:", id);
+    return;
+  }
 
   const instance = basicLightbox.create(`
-    <div class ="modal">
-     <img src = "${product.img}" alt="${product.name}"/>
-    <h2>${product.name}</h2> 
-    <h3>Ціна: ${product.price} грн</h3> 
-    <p>${product.description}</p>
+    <div class="modal">
+      <img src="${product.img}" alt="${product.name}"/>
+      <h2>${product.name}</h2> 
+      <h3>Ціна: ${product.price} грн</h3> 
+      <p>${product.description}</p>
     </div>
-    `);
+  `);
 
   instance.show();
 }
